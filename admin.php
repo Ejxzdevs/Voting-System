@@ -48,6 +48,7 @@ require_once('connection.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./admin.css">
     <title>Voting system</title>
 </head>
 <body>
@@ -63,7 +64,13 @@ require_once('connection.php');
             <option value="Surgent">Surgent</option>
         </select>
         <button type="submit" name="insert">Insert</button>
-        <button type="submit" name="update">Update</button>
+        <button type="submit" name="update" class="bg-sky-500 hover:bg-sky-700">Update</button>
+        <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-white font-bold py-2 px-4 rounded">
+  Save changes
+</button>
+
+<p class="underline underline-offset-8 ...">The quick brown fox...</p>
+        
     </form>
  
     <table>
