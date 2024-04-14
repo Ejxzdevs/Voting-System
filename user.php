@@ -1,7 +1,7 @@
 <?php 
 require_once('connection.php');
 
-$sql_fetch_data = "SELECT id, name, officer FROM voters";
+$sql_fetch_data = "SELECT id, Name, Position FROM voters";
 $stmt = $conn->query($sql_fetch_data);
 $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -26,16 +26,16 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
         'Secretary' => array()
     );
 
-    // Group voters by officer type
+    // Group voters by Position
     foreach ($voters as $voter) {
-        $voters_by_type[$voter['officer']][] = $voter;
+        $voters_by_type[$voter['Position']][] = $voter;
     }
 
     // Display voters by officer type
-    foreach ($voters_by_type as $officer => $voters):
+    foreach ($voters_by_type as $Position => $voters):
     ?>
         <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4"><?php echo $officer; ?></h2>
+            <h2 class="text-2xl font-semibold mb-4"><?php echo $Position; ?></h2>
             <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-200">
                     <tr>

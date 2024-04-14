@@ -5,15 +5,15 @@ require_once('connection.php');
         // Check if form is for inserting new record or updating existing record
         if (isset($_POST['insert'])) {
             // Prepare an SQL statement for insertion
-            $stmt = $conn->prepare("INSERT INTO voters (name, officer) VALUES (:name, :officer)");
+            $stmt = $conn->prepare("INSERT INTO voters (Name, Position) VALUES (:name, :position)");
             
             // Bind parameters to the named placeholders
             $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':officer', $officer);
+            $stmt->bindParam(':position', $position);
             
             // Set parameters and execute the statement for insertion
             $name = $_POST['name'];
-            $officer = $_POST['officer'];
+            $position = $_POST['position'];
             $stmt->execute();
             
             header("Location: admin.php");
@@ -28,7 +28,7 @@ require_once('connection.php');
             
             // Set parameters and execute the statement for updating
             $name = $_POST['name'];
-            $officer = $_POST['officer'];
+            $officer = $_POST['position'];
             $id = $_POST['id'];
             $stmt->execute();
             
@@ -37,7 +37,7 @@ require_once('connection.php');
     }
 
     // Fetch voters data
-    $sql_fetch_data = "SELECT id, name, officer, Count FROM voters";
+    $sql_fetch_data = "SELECT id, Name, Position, Count FROM voters";
     $stmt = $conn->query($sql_fetch_data);
     $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -57,7 +57,7 @@ require_once('connection.php');
         <form class="flex flex-row gap-2 items-center pl-4 bg-gray-300  " action="" method="post" style="height: 60vh" >
             <input type="text" name="name" placeholder="Insert Candidate" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
             <input type="text" name="id" hidden>
-            <select name="officer" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+            <select name="position" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
                 <option value="President">President</option>
                 <option value="Vice President">Vice President</option>
                 <option value="Secretary">Secretary</option>
@@ -68,44 +68,43 @@ require_once('connection.php');
             <button id="update" type="submit" name="update" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32 h-10" >Update</button>        
         </form>
 </header>
-<div class="container px-4 bg-gray-300" style="height: 80vh;">
-    
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr>
-                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Officer</th>
-                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Count</th>
-                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                <?php foreach ($voters as $voter): ?>
-                    <tr>
-                        <td class="text-center px-24 py-4 whitespace-no-wrap"><?php echo $voter['name']; ?></td>
-                        <td class="text-center px-16 py-4 whitespace-no-wrap"><?php echo $voter['officer']; ?></td>
-                        <td class="text-center px-8 py-4 whitespace-no-wrap"><?php echo $voter['Count']; ?></td>
-                        <td class="text-center py-2 whitespace-no-wrap">
-                            <a class="text-center inline-block  w-32 h-10 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600" href="?delete=<?php echo $voter['id']; ?>">Delete</a>
-                            <a class="text-center inline-block w-32 h-10 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="?edit=<?php echo $voter['id']; ?>">Edit</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+<div class="bg-yellow-300">
+    <table class="min-w-full divide-y divide-gray-200 " style="width:80vw;">
+    <thead>
+        <tr>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Count</th>
+            <th class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+        </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+        <?php foreach ($voters as $voter): ?>
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Name']; ?></td>
+                <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Position']; ?></td>
+                <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Count']; ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <a href="?delete=<?php echo $voter['id']; ?>" class="text-red-500 hover:text-red-700 mr-2">Delete</a>
+                    <a href="?edit=<?php echo $voter['id']; ?>" class="text-blue-500 hover:text-blue-700">Edit</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+    </table>
+</div>
     <?php
     if (isset($_GET['edit'])) {
         $id = $_GET['edit'];
-        $sql_fetch_record = "SELECT name, officer FROM voters WHERE id = :id";
+        $sql_fetch_record = "SELECT Name, Position FROM voters WHERE id = :id";
         $stmt = $conn->prepare($sql_fetch_record);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
         <script>
-            document.getElementsByName('name')[0].value = "<?php echo $record['name']; ?>";
-            document.getElementsByName('officer')[0].value = "<?php echo $record['officer']; ?>";
+            document.getElementsByName('name')[0].value = "<?php echo $record['Name']; ?>";
+            document.getElementsByName('position')[0].value = "<?php echo $record['Position']; ?>";
             document.getElementsByName('id')[0].value = "<?php echo $id; ?>";
             document.getElementsByName('name')[0].focus();
         </script>
@@ -122,7 +121,4 @@ require_once('connection.php');
     }
     ?>
 </body>
-    <script>
-        let btnUpdate = document.getElementById("update").disabled = true;
-    </script>
 </html>
