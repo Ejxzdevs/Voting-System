@@ -24,7 +24,8 @@ $database = "voting_system";
     $sql_create_table = "CREATE TABLE IF NOT EXISTS voters (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(50) NOT NULL,
-        officer VARCHAR(50) NOT NULL
+        officer VARCHAR(50) NOT NULL,
+        Count VARCHAR(6) NOT NULL DEFAULT 0
     )";
     
     // Execute table creation query

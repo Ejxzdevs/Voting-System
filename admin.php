@@ -37,7 +37,7 @@ require_once('connection.php');
     }
 
     // Fetch voters data
-    $sql_fetch_data = "SELECT id, name, officer FROM voters";
+    $sql_fetch_data = "SELECT id, name, officer, Count FROM voters";
     $stmt = $conn->query($sql_fetch_data);
     $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -48,53 +48,52 @@ require_once('connection.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./admin.css">
-    <title>Voting system</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Admin</title>
 </head>
-<body>
-    <h1>Admin panel</h1>
-    <form action="" method="post">
-        <input type="hidden" name="id" value="">
-        <input type="text" name="name" placeholder="name">
-        <select name="officer">
-            <option value="President">President</option>
-            <option value="Vice President">Vice President</option>
-            <option value="Secretary">Secretary</option>
-            <option value="Author">Author</option>
-            <option value="Surgent">Surgent</option>
-        </select>
-        <button type="submit" name="insert">Insert</button>
-        <button type="submit" name="update" class="bg-sky-500 hover:bg-sky-700">Update</button>
-        <button class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-white font-bold py-2 px-4 rounded">
-  Save changes
-</button>
-
-<p class="underline underline-offset-8 ...">The quick brown fox...</p>
-        
-    </form>
- 
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Officer</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($voters as $voter): ?>
-                <tr>
-                    <td><?php echo $voter['name']; ?></td>
-                    <td><?php echo $voter['officer']; ?></td>
-                    <td>
-                        <a href="?delete=<?php echo $voter['id']; ?>">Delete</a>
-                        <a href="?edit=<?php echo $voter['id']; ?>">Edit</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+<body style="height: 100vh;" >
+<header class="bg-gray-300 text-white flex flex-col " style="height: 20vh;">
+        <h1 class="flex items-center justify-center bg-gray-800 uppercase text-xl font-sans font-semibold " style="height: 40vh">Admin panel</h1>
+        <form class="flex flex-row gap-2 items-center pl-4 bg-gray-300  " action="" method="post" style="height: 60vh" >
+            <input type="text" name="name" placeholder="Insert Candidate" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+            <input type="text" name="id" hidden>
+            <select name="officer" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+                <option value="President">President</option>
+                <option value="Vice President">Vice President</option>
+                <option value="Secretary">Secretary</option>
+                <option value="Author">Author</option>
+                <option value="Surgent">Surgent</option>
+            </select>
+            <button type="submit" name="insert" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded w-32 h-10">Insert</button>
+            <button id="update" type="submit" name="update" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32 h-10" >Update</button>        
+        </form>
+</header>
+<div class="container px-4 bg-gray-300" style="height: 80vh;">
     
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Officer</th>
+                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Count</th>
+                    <th class="text-center py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <?php foreach ($voters as $voter): ?>
+                    <tr>
+                        <td class="text-center px-24 py-4 whitespace-no-wrap"><?php echo $voter['name']; ?></td>
+                        <td class="text-center px-16 py-4 whitespace-no-wrap"><?php echo $voter['officer']; ?></td>
+                        <td class="text-center px-8 py-4 whitespace-no-wrap"><?php echo $voter['Count']; ?></td>
+                        <td class="text-center py-2 whitespace-no-wrap">
+                            <a class="text-center inline-block  w-32 h-10 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600" href="?delete=<?php echo $voter['id']; ?>">Delete</a>
+                            <a class="text-center inline-block w-32 h-10 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" href="?edit=<?php echo $voter['id']; ?>">Edit</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <?php
     if (isset($_GET['edit'])) {
         $id = $_GET['edit'];
@@ -123,4 +122,7 @@ require_once('connection.php');
     }
     ?>
 </body>
+    <script>
+        let btnUpdate = document.getElementById("update").disabled = true;
+    </script>
 </html>
