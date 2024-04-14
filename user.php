@@ -34,9 +34,9 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
     // Display voters by officer type
     foreach ($voters_by_type as $Position => $voters):
     ?>
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold mb-4"><?php echo $Position; ?></h2>
-            <table class="min-w-full divide-y divide-gray-300">
+<div class="mb-8">
+    <h2 class="text-2xl font-semibold mb-4 mt-4 "><?php echo $Position; ?></h2>
+        <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-200">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
@@ -46,12 +46,12 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tbody class="bg-white divide-y divide-gray-300">
                     <?php foreach ($voters as $voter): ?>
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['name']; ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Name']; ?></td>
                             <td class="px-6 py-4 whitespace-nowrap"><a href="#" class="text-blue-500 hover:text-blue-700">Vote</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-           </table>
+        </table>
         </div>
     <?php endforeach; ?>
 </div>
