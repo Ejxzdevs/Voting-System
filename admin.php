@@ -44,7 +44,17 @@ require_once('connection.php');
     }
 
     // Fetch voters data
-    $sql_fetch_data = "SELECT id, Name, Position, Count FROM Candidates";
+    $sql_fetch_data = "SELECT id, Name, Position, Count 
+    FROM Candidates 
+    ORDER BY 
+        CASE Position
+            WHEN 'President' THEN 1
+            WHEN 'Vice President' THEN 2
+            WHEN 'Secretary' THEN 3
+            WHEN 'Author' THEN 4
+            WHEN 'Sergeant' THEN 5
+            ELSE 6 
+        END;";
     $stmt = $conn->query($sql_fetch_data);
     $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
