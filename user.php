@@ -1,7 +1,7 @@
 <?php 
 require_once('connection.php');
 
-$sql_fetch_data = "SELECT id, Name, Position FROM voters";
+$sql_fetch_data = "SELECT id, Name, Position FROM Candidates";
 $stmt = $conn->query($sql_fetch_data);
 $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -47,7 +47,7 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($voters as $voter): ?>
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Name']; ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><a href="#" class="text-blue-500 hover:text-blue-700">Vote</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="vote.php?id=<?php echo $voter['id']; ?>" class="text-blue-500 hover:text-blue-700">Vote</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

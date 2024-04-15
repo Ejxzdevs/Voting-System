@@ -5,7 +5,7 @@ require_once('connection.php');
         // Check if form is for inserting new record or updating existing record
         if (isset($_POST['insert'])) {
             // Prepare an SQL statement for insertion
-            $stmt = $conn->prepare("INSERT INTO voters (Name, Position) VALUES (:name, :position)");
+            $stmt = $conn->prepare("INSERT INTO Candidates (Name, Position) VALUES (:name, :position)");
             
             // Bind parameters to the named placeholders
             $stmt->bindParam(':name', $name);
@@ -19,7 +19,7 @@ require_once('connection.php');
             header("Location: admin.php");
         } elseif (isset($_POST['update'])) {
             // Prepare an SQL statement for updating
-            $stmt = $conn->prepare("UPDATE voters SET name = :name, officer = :officer WHERE id = :id");
+            $stmt = $conn->prepare("UPDATE Candidates SET name = :name, officer = :officer WHERE id = :id");
             
             // Bind parameters to the named placeholders
             $stmt->bindParam(':name', $name);
@@ -37,7 +37,7 @@ require_once('connection.php');
     }
 
     // Fetch voters data
-    $sql_fetch_data = "SELECT id, Name, Position, Count FROM voters";
+    $sql_fetch_data = "SELECT id, Name, Position, Count FROM Candidates";
     $stmt = $conn->query($sql_fetch_data);
     $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

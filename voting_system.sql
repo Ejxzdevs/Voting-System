@@ -20,7 +20,7 @@ CREATE DATABASE IF NOT EXISTS `voting_system` /*!40100 DEFAULT CHARACTER SET utf
 USE `voting_system`;
 
 -- Dumping structure for table voting_system.voters
-CREATE TABLE IF NOT EXISTS `voters` (
+CREATE TABLE IF NOT EXISTS `Candidates` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `Position` varchar(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `voters` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table voting_system.voters: ~1 rows (approximately)
-REPLACE INTO `voters` (`id`, `Name`, `Position`, `Count`) VALUES
+REPLACE INTO `Candidates` (`id`, `Name`, `Position`, `Count`) VALUES
 	(2, 'Karl', 'President', '0'),
 	(4, 'Berto', 'Author', '0'),
 	(5, 'Emily', 'President', '0'),
