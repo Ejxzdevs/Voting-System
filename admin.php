@@ -1,7 +1,7 @@
 <?php
 require_once('connection.php');
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET' ) {
         // Check if form is for inserting new record or updating existing record
         if (isset($_POST['insert'])) {
             // Prepare an SQL statement for insertion
@@ -19,19 +19,26 @@ require_once('connection.php');
             header("Location: admin.php");
         } elseif (isset($_POST['update'])) {
             // Prepare an SQL statement for updating
-            $stmt = $conn->prepare("UPDATE Candidates SET name = :name, officer = :officer WHERE id = :id");
+            $stmt = $conn->prepare("UPDATE Candidates SET Name = :name, Position = :position WHERE id = :id");
             
             // Bind parameters to the named placeholders
             $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':officer', $officer);
+            $stmt->bindParam(':position', $position);
             $stmt->bindParam(':id', $id);
             
             // Set parameters and execute the statement for updating
             $name = $_POST['name'];
-            $officer = $_POST['position'];
+            $position = $_POST['position'];
             $id = $_POST['id'];
             $stmt->execute();
             
+            header("Location: admin.php");
+        }elseif(isset($_GET['delete'])) {
+            $id = $_GET['delete'];
+            $sql_delete_record = "DELETE FROM Candidates WHERE id = :id";
+            $stmt = $conn->prepare($sql_delete_record);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
             header("Location: admin.php");
         }
     }
@@ -93,32 +100,26 @@ require_once('connection.php');
     </tbody>
     </table>
 </div>
-    <?php
-    if (isset($_GET['edit'])) {
-        $id = $_GET['edit'];
-        $sql_fetch_record = "SELECT Name, Position FROM voters WHERE id = :id";
-        $stmt = $conn->prepare($sql_fetch_record);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $record = $stmt->fetch(PDO::FETCH_ASSOC);
-    ?>
-        <script>
-            document.getElementsByName('name')[0].value = "<?php echo $record['Name']; ?>";
-            document.getElementsByName('position')[0].value = "<?php echo $record['Position']; ?>";
-            document.getElementsByName('id')[0].value = "<?php echo $id; ?>";
-            document.getElementsByName('name')[0].focus();
-        </script>
-    <?php } ?>
+<?php
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $sql_fetch_record = "SELECT Name, Position FROM Candidates WHERE id = :id";
+    $stmt = $conn->prepare($sql_fetch_record);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    echo <<<HTML
+    <script>
+        document.getElementsByName('name')[0].value = "{$record['Name']}";
+        document.getElementsByName('position')[0].value = "{$record['Position']}";
+        document.getElementsByName('id')[0].value = "{$id}";
+        document.getElementsByName('name')[0].focus();
+    </script>
+HTML;
+}
+?>
+
     
-    <?php
-    if (isset($_GET['delete'])) {
-        $id = $_GET['delete'];
-        $sql_delete_record = "DELETE FROM voters WHERE id = :id";
-        $stmt = $conn->prepare($sql_delete_record);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        header("Location: admin.php");
-    }
-    ?>
 </body>
 </html>
