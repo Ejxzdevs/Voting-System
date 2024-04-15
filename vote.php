@@ -13,8 +13,6 @@ $stmt->execute();
 if($stmt){
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     $count = $record['Count'] + 1;
-
-
     $stmt = $conn->prepare("UPDATE Candidates SET Count = :count WHERE id = :id");
             
     $stmt->bindParam(':id', $id);
