@@ -21,7 +21,7 @@ $database = "voting_system";
     $conn->exec("USE $database");
 
     // SQL query to create table
-    $sql_create_table = "CREATE TABLE IF NOT EXISTS Officer (
+    $sql_create_table = "CREATE TABLE IF NOT EXISTS Candidates (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         Name VARCHAR(50) NOT NULL,
         Position VARCHAR(50) NOT NULL,
