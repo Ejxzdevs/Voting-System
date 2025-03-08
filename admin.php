@@ -72,7 +72,7 @@ require_once('connection.php');
 <header class="bg-gray-300 text-white flex flex-col " style="height: 20vh;">
         <h1 class="flex items-center justify-center bg-gray-800 uppercase text-xl font-sans font-semibold " style="height: 40vh">Admin panel</h1>
         <form class="flex flex-row gap-2 items-center pl-4 bg-gray-300  " action="" method="post" style="height: 60vh" >
-            <input type="text" name="name" placeholder="Insert Candidate" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
+            <input type="text" name="name" placeholder="Insert Candidate" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required>
             <input type="text" name="id" hidden>
             <select name="position" class="text-gray-800 w-50 h-10 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
                 <option value="President">President</option>
