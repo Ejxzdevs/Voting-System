@@ -1,9 +1,6 @@
 <?php 
-require_once('connection.php');
-
-$sql_fetch_data = "SELECT id ,Name ,Position ,image_url FROM Candidates";
-$stmt = $conn->query($sql_fetch_data);
-$candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+require_once 'connection.php';
+require_once 'candidates_service.php';
 ?>
 
 <!DOCTYPE html>
@@ -17,21 +14,7 @@ $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="bg-gray-200">
 <div class="container mx-auto px-4 py-8">
     <?php 
-    $candidates_by_type = array(
-        'President' => array(),
-        'Vice President' => array(),
-        'Surgent' => array(),
-        'Author' => array(),
-        'Secretary' => array()
-    );
-
-    // Group voters by Position
-    foreach ($candidates as $candidate) {
-        $candidates_by_type[$candidate['Position']][] = $candidate;
-    }
-
-    // Display voters by officer type
-    foreach ($candidates_by_type as $Position => $candidates):
+        foreach ($candidates_by_type as $Position => $candidates):
     ?>
 <div class="mb-8">
     <h2 class="text-2xl font-semibold mb-4 mt-4 "><?php echo $Position; ?></h2>
@@ -55,8 +38,8 @@ $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </tbody>
         </table>
-        </div>
-    <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
 </div>
 </body>
 </html>
