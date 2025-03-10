@@ -1,9 +1,9 @@
 <?php 
 require_once('connection.php');
 
-$sql_fetch_data = "SELECT id, Name, Position FROM Candidates";
+$sql_fetch_data = "SELECT id ,Name ,Position ,image_url FROM Candidates";
 $stmt = $conn->query($sql_fetch_data);
-$voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +17,7 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="bg-gray-200">
 <div class="container mx-auto px-4 py-8">
     <?php 
-    // Array to store voters based on officer type
-    $voters_by_type = array(
+    $candidates_by_type = array(
         'President' => array(),
         'Vice President' => array(),
         'Surgent' => array(),
@@ -27,27 +26,31 @@ $voters = $stmt->fetchAll(PDO::FETCH_ASSOC);
     );
 
     // Group voters by Position
-    foreach ($voters as $voter) {
-        $voters_by_type[$voter['Position']][] = $voter;
+    foreach ($candidates as $candidate) {
+        $candidates_by_type[$candidate['Position']][] = $candidate;
     }
 
     // Display voters by officer type
-    foreach ($voters_by_type as $Position => $voters):
+    foreach ($candidates_by_type as $Position => $candidates):
     ?>
 <div class="mb-8">
     <h2 class="text-2xl font-semibold mb-4 mt-4 "><?php echo $Position; ?></h2>
         <table class="min-w-full divide-y divide-gray-300">
                 <thead class="bg-gray-200">
                     <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-300">
-                    <?php foreach ($voters as $voter): ?>
+                    <?php foreach ($candidates as $candidate): ?>
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap"><?php echo $voter['Name']; ?></td>
-                            <td class="px-6 py-4 whitespace-nowrap"><a href="vote.php?id=<?php echo $voter['id']; ?>" class="text-blue-500 hover:text-blue-700">Vote</a></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <img class="shadow-md rounded-md h-[40px] w-[50px]" src="<?php echo     $candidate['image_url']; ?>" alt="<?php echo $candidate['image_url']; ?>">
+                                </td>
+                            <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Name']; ?></td>
+                            <td class="px-6 py-4 whitespace-nowrap"><a href="vote.php?id=<?php echo $candidate['id']; ?>" class="text-blue-500 hover:text-blue-700">Vote</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

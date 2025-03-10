@@ -1,0 +1,13 @@
+* {
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+html,body {
+    height: auto;
+    font-size: 14px;
+    background-color: #1686C7;
+    scrollbar-width: thin;
+    scrollbar-color:#E5E6E6 #636363;
+}
