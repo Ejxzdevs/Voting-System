@@ -1,0 +1,2 @@
+<a href="dashboard.php" class="w-[120px] flex justify-center items-center h-9 px-4 border border-gray-500 font-semibold bg-[#1686C7] text-white rounded-md shadow-lg" >Dashboard</a>
+<a href="candidates.php" class="w-[120px] flex justify-center items-center h-9 px-4 border border-gray-500 font-semibold bg-[#1686C7] text-white rounded-md shadow-lg" >Candidates</a>

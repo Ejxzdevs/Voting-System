@@ -1,6 +1,4 @@
 <?php
-require_once('connection.php');
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_POST['insert'])) {
 
@@ -90,18 +88,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET
             echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = 'candidates.php';</script>";
         }
     }
+
+    // settings
+
+    if (isset($_POST['add_position'])) {
+        if (!empty($_POST['position_name'])) {
+            $stmt = $conn->prepare("INSERT INTO positions (position_name) VALUES (?)");
+            $stmt->bindParam(1, $_POST['position_name']);
+            $stmt->execute();
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        }
+    }
+    
+    if (isset($_POST['delete_position'])) {
+        $position_id = $_POST['position_id'];
+        if (!empty($position_id)) {
+            $stmt = $conn->prepare("DELETE FROM positions WHERE position_id = ?");
+            $stmt->bindParam(1, $position_id);
+            $stmt->execute();
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        }
+    }
+    
+    if (isset($_POST['edit_position'])) {
+        if (!empty($_POST['position_name']) && !empty($_POST['position_id'])) {
+            $position_name = $_POST['position_name'];
+            $position_id = $_POST['position_id'];
+    
+            $stmt = $conn->prepare("UPDATE positions SET position_name = ? WHERE position_id = ?");
+            $stmt->bindParam(1, $position_name);
+            $stmt->bindParam(2, $position_id);
+            $stmt->execute();
+    
+            header("Location: " . $_SERVER['PHP_SELF']); 
+            exit;
+        }
+    }
 }
 
-$sql_fetch_data = "SELECT id, Name,image_url, Position, Count 
-FROM Candidates 
-ORDER BY 
-    CASE Position
-        WHEN 'President' THEN 1
-        WHEN 'Vice President' THEN 2
-        WHEN 'Secretary' THEN 3
-        WHEN 'Author' THEN 4
-        WHEN 'Sergeant' THEN 5
-        ELSE 6 
-    END;";
-$stmt = $conn->query($sql_fetch_data);
-$candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
