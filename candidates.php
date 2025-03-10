@@ -1,4 +1,9 @@
-<?php require_once('candidates_crud.php'); ?>
+<?php 
+    require_once 'connection.php';
+    require_once 'http.php';
+    require_once 'candidates_service.php';
+    require_once 'positions_service.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +17,24 @@
 <body>
 <div class="text-white flex flex-col">
         <label class="flex items-center justify-center bg-[#1686C7] uppercase text-[18px] font-[Verdana]  font-semibold h-[50px] tracking-wide">Voting Management System</label>
-        <div class="bg-[#E5E6E6] h-[50px] flex flex-row gap-2 ps-5 items-center w-[98%] ms-4 rounded-sm">
-            <a href="dashboard.php" class="w-[120px] flex justify-center items-center h-9 px-4 border border-gray-500 font-semibold bg-[#1686C7] text-white rounded-md shadow-lg" >Dashboard</a>
-            <a href="candidates.php" class="w-[120px] flex justify-center items-center h-9 px-4 border border-gray-500 font-semibold bg-[#1686C7] text-white rounded-md shadow-lg" >Candidates</a>
+        <div class="bg-[#E5E6E6] h-[50px] flex flex-row w-[98%] ms-4 rounded-sm">
+            <div class="flex flex-row gap-2 ps-5 items-center w-[50%]">
+                <?php require_once 'route.php'; ?>
+            </div>
+            <div class="flex flex-row gap-5 ps-5 items-center justify-end w-[50%] pe-6 text-gray-500 text-[16px]">
+                <?php require_once 'options.php'; ?>
+            </div>
         </div>
         <form class="flex flex-row gap-2 items-center pl-9 font-semibold h-[60px] " action="" method="post" enctype="multipart/form-data">
             <img id="previewImage" class="border border-gray-700 shadow-md rounded-sm h-[40px] w-[50px] " src="" hidden> 
-            <label id="imageLabel" for="image" class="border border-green-700 bg-green-500 hover:bg-green-700 px-2 h-9 flex justify-center items-center rounded-md shadow-md text-white cursor-pointer bg-[#D3D3D3] hover:bg-blue-500">Upload Image</label>
-            <input onchange="ImagePreview(this)"  id="imageInput" type="file" name="image" id="image" hidden required>
+            <label id="imageLabel" for="imageInput" class="border border-green-700 bg-green-500 hover:bg-green-700 px-2 h-9 flex justify-center items-center rounded-md shadow-md text-white cursor-pointer bg-[#D3D3D3] hover:bg-blue-500">Upload Image</label>
+            <input onchange="ImagePreview(this)" id="imageInput" type="file" name="image" hidden required>
             <input id="candidate_name" type="text" name="name" placeholder="Candidate" class="text-gray-800 w-45 h-9 px-3 py-1 border border-gray-700 rounded-md focus:outline-none focus:border-blue-500 " required>
             <input id="candidate_id" type="text" name="id" hidden>
             <select id="position"  name="position" class="text-gray-800 w-40 h-9 px-4 py-1 border border-gray-700 rounded-md focus:outline-none focus:border-blue-500">
-                <option value="President">President</option>
-                <option value="Vice President">Vice President</option>
-                <option value="Secretary">Secretary</option>
-                <option value="Author">Author</option>
-                <option value="Sergeant">Sergeant</option>
+                <?php foreach($positions as $position):?>
+                    <option value="<?php echo $position['position_name']; ?>"><?php echo $position['position_name']; ?></option>
+                <?php endforeach; ?>
             </select>
             <button id="insert" type="submit" name="insert" class="w-[90px] h-9 px-2 border border-blue-700 bg-blue-500 hover:bg-blue-700 cursor-pointer shadow-md rounded ">Insert</button>
             <button id="cancel" type="submit" class="w-[90px] h-9 px-2 border border-red-700 bg-red-500 hover:bg-red-700 cursor-pointer shadow-md rounded" hidden>Cancel</button>
