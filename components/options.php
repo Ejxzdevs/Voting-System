@@ -14,7 +14,7 @@
     <a href="#" onclick="openModal()" class="text-xl text-gray-700 hover:text-gray-900">
         <i class="fa fa-cogs"></i>
     </a>
-    <a href="#" onclick="signOut()" class="text-xl text-gray-700 hover:text-gray-900">
+    <a href="index.php" class="text-xl text-gray-700 hover:text-gray-900">
         <i class="fa fa-sign-out-alt"></i>
     </a>
 </div>
@@ -100,6 +100,6 @@
         </form>
     </div>
 </div>
-    <script src="./option.js"></script>
+    <script src="./assets/js/option.js"></script>
 </body>
 </html>

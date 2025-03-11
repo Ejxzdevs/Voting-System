@@ -27,7 +27,3 @@ function closeEditPositionModal() {
     document.getElementById("editPositionModal").classList.add("hidden");
     openModal();
 }
-
-function signOut() {
-    alert("Signed out!");
-}
