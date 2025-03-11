@@ -11,10 +11,10 @@
   <div class="container">
     <div class="row mt-5">
       <div class="col-md-6">
-        <a href="admin.php" class="btn btn-primary btn-lg btn-block">ADMIN</a>
+        <a href="candidates.php" class="btn btn-primary btn-lg btn-block">ADMIN</a>
       </div>
       <div class="col-md-6">
-        <a href="user.php" class="btn btn-secondary btn-lg btn-block">User</a>
+        <a href="voter_register.php" class="btn btn-secondary btn-lg btn-block">User</a>
       </div>
     </div>
   </div>
