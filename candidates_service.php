@@ -1,6 +1,6 @@
 <?php 
-$sql_fetch_data = "SELECT id, Name,image_url, Position, Count 
-FROM Candidates";
+$sql_fetch_data = "SELECT * 
+FROM Candidates inner join positions on Candidates.position_id = positions.position_id order by positions.position_id ";
 $stmt = $conn->query($sql_fetch_data);
 $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -8,7 +8,7 @@ $candidates_by_type = array();
 
 // Group candidates by Position dynamically
 foreach ($candidates as $candidate) {
-    $position = $candidate['Position'];
+    $position = $candidate['position_name'];
     
     // If the position key doesn't exist, initialize it as an empty array
     if (!isset($candidates_by_type[$position])) {
