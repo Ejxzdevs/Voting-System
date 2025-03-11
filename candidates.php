@@ -14,10 +14,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Admin/Candidates</title>
 </head>
-<body>
-<div class="text-white flex flex-col">
-        <label class="flex items-center justify-center bg-[#1686C7] uppercase text-[18px] font-[Verdana]  font-semibold h-[50px] tracking-wide">Voting Management System</label>
-        <div class="bg-[#E5E6E6] h-[50px] flex flex-row w-[98%] ms-4 rounded-sm">
+<body class="bg-[#1686C7]">
+<div class="text-white flex flex-col ">
+        <label class="flex items-center justify-center bg-[#1686C7]  uppercase text-[18px] font-[Verdana]  font-semibold h-[50px] tracking-wide">Voting Management System</label>
+        <div class="bg-[#E5E6E6] h-[50px] flex flex-row w-[98%] ms-4 rounded-sm ">
             <div class="flex flex-row gap-2 ps-5 items-center w-[50%]">
                 <?php require_once 'route.php'; ?>
             </div>
@@ -31,9 +31,9 @@
             <input onchange="ImagePreview(this)" id="imageInput" type="file" name="image" hidden required>
             <input id="candidate_name" type="text" name="name" placeholder="Candidate" class="text-gray-800 w-45 h-9 px-3 py-1 border border-gray-700 rounded-md focus:outline-none focus:border-blue-500 " required>
             <input id="candidate_id" type="text" name="id" hidden>
-            <select id="position"  name="position" class="text-gray-800 w-40 h-9 px-4 py-1 border border-gray-700 rounded-md focus:outline-none focus:border-blue-500">
+            <select id="position_id"  name="position_id" class="text-gray-800 w-40 h-9 px-4 py-1 border border-gray-700 rounded-md focus:outline-none focus:border-blue-500">
                 <?php foreach($positions as $position):?>
-                    <option value="<?php echo $position['position_name']; ?>"><?php echo $position['position_name']; ?></option>
+                    <option value="<?php echo $position['position_id']; ?>"><?php echo $position['position_name']; ?></option>
                 <?php endforeach; ?>
             </select>
             <button id="insert" type="submit" name="insert" class="w-[90px] h-9 px-2 border border-blue-700 bg-blue-500 hover:bg-blue-700 cursor-pointer shadow-md rounded ">Insert</button>
@@ -42,7 +42,7 @@
         </form>
 </div>
 
-<div class="px-4">
+<div class="px-4  bg-[#1686C7]  ">
     <table class="min-w-[97vw] divide-y divide-gray-200 shadow-md rounded-md text-center">
         <thead>
             <tr>
@@ -60,7 +60,7 @@
                        <img class="shadow-md rounded-md h-[40px] w-[50px]" src="<?php echo $candidate['image_url']; ?>" alt="<?php echo $candidate['image_url']; ?>"> 
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Name']; ?></td>
-                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Position']; ?></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['position_name']; ?></td>
                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Count']; ?></td>
                     <td class="px-6 py-4 whitespace-nowrap flex flex-row gap-6 justify-center items-center ">
                         <a id="editBtn" href="javascript:void(0);" class="edit-link text-blue-500 hover:text-blue-700" data='<?php echo htmlspecialchars(json_encode($candidate), ENT_QUOTES, 'UTF-8'); ?>'><i class="fas fa-edit"></i></a>
