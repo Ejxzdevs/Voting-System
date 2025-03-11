@@ -1,4 +1,16 @@
-<div class="flex space-x-4 p-4 ">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Positions</title>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<!-- Header with Settings and Logout -->
+<div class="flex space-x-4 p-4">
     <a href="#" onclick="openModal()" class="text-xl text-gray-700 hover:text-gray-900">
         <i class="fa fa-cogs"></i>
     </a>
@@ -7,11 +19,18 @@
     </a>
 </div>
 
-<div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center  hidden text-[14px]">
-    <div class="bg-white rounded-lg p-8 w-full sm:w-96">
-        <div class="flex justify-between mb-4">
+<!-- Positions Modal -->
+<div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden text-[14px]">
+    <div class="bg-white rounded-lg p-8 w-full sm:w-96 relative">
+        
+        <!-- Close Button (Top Right) -->
+     
+
+        <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-center">Positions</h2>
-            <button onclick="openAddPositionModal()" class="w-[90px] h-9 px-2 border border-blue-700 bg-blue-500 hover:bg-blue-700 cursor-pointer shadow-md rounded mb-2 text-white">Create</button>
+            <button onclick="openAddPositionModal()" class="w-[90px] h-9 px-2 border border-blue-700 bg-blue-500 hover:bg-blue-700 cursor-pointer shadow-md rounded text-white">
+                Create
+            </button>
         </div>
 
         <div class="mb-4 h-60 overflow-y-auto">
@@ -20,27 +39,32 @@
                     <li class="flex justify-between items-center py-2 px-4 bg-gray-100 rounded-md hover:bg-gray-200">
                         <span class="text-gray-800"><?php echo htmlspecialchars($position['position_name']); ?></span>
                         
-                        <div class="flex flex-row gap-2 " >
-
-                        <!-- Edit Button -->
-                        <button onclick="openEditPositionModal(<?php echo $position['position_id']; ?>, '<?php echo htmlspecialchars($position['position_name']); ?>')" class="text-blue-600 hover:text-blue-800">
-                            <i class="fa fa-edit text-xl"></i>
-                        </button>
-
-                        <!-- Delete Button -->
-                        <form method="POST" action="" class="flex items-center space-x-2">
-                            <input type="hidden" name="position_id" value="<?php echo $position['position_id']; ?>">
-                            <button type="submit" name="delete_position" class="text-red-600 hover:text-red-800 bg-transparent border-none">
-                                <i class="fa fa-trash text-xl"></i>
+                        <div class="flex flex-row gap-2">
+                            <!-- Edit Button -->
+                            <button onclick="openEditPositionModal(<?php echo $position['position_id']; ?>, '<?php echo htmlspecialchars($position['position_name']); ?>')" class="text-blue-600 hover:text-blue-800">
+                                <i class="fa fa-edit text-xl"></i>
                             </button>
-                        </form>
+
+                            <!-- Delete Button -->
+                            <form method="POST" action="" class="flex items-center space-x-2">
+                                <input type="hidden" name="position_id" value="<?php echo $position['position_id']; ?>">
+                                <button type="submit" name="delete_position" class="text-red-600 hover:text-red-800 bg-transparent border-none">
+                                    <i class="fa fa-trash text-xl"></i>
+                                </button>
+                            </form>
                         </div>
                     </li>
                 <?php endforeach; ?>
             </ul>
         </div>
+        <div class="w-full flex justify-center items-center">
+        <button onclick="closeModal()" class="w-[90px] h-9 px-2 border border-blue-700 bg-gray-500 text-white hover:bg-gray-700 shadow-md rounded">
+            Close
+        </button>
+        </div>
     </div>
 </div>
+
 
 <!-- Add Position Modal -->
 <div id="addPositionModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
@@ -76,4 +100,6 @@
         </form>
     </div>
 </div>
-<script src="option.js"></script>
+    <script src="./option.js"></script>
+</body>
+</html>
