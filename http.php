@@ -1,73 +1,96 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_POST['insert'])) {
 
-        $name = htmlspecialchars(trim($_POST['name']));
-        $position = htmlspecialchars(trim($_POST['position']));
+function uploadImage($file) {
+    $allowed = array('jpg', 'jpeg', 'png', 'gif');
+    $fileName = $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileSize = $file['size'];
+    $fileError = $file['error'];
+    $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-        if (isset($_FILES['image'])) {
-            $file = $_FILES['image'];
-            $fileName = $_FILES['image']['name'];
-            $fileTmpName = $_FILES['image']['tmp_name'];
-            $fileSize = $_FILES['image']['size'];
-            $fileError = $_FILES['image']['error'];
-            $fileType = $_FILES['image']['type'];
+    // Check file type
+    if (in_array($fileExt, $allowed)) {
+        if ($fileError === 0) {
+            if ($fileSize <= 5000000) {
+                // Create a unique file name
+                $fileNewName = uniqid('', true) . '.' . $fileExt;
+                $fileDestination = 'images/' . $fileNewName;
 
-            // Allowed file types
-            $allowed = array('jpg', 'jpeg', 'png', 'gif');
-            $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-            if (in_array($fileExt, $allowed)) {
-                if ($fileError === 0) {
-                    if ($fileSize <= 5000000) {
-                        $fileNewName = uniqid('', true) . '.' . $fileExt;
-                        $fileDestination = 'images/' . $fileNewName;
-                        try {
-                            // Move the uploaded file to the destination
-                            if (move_uploaded_file($fileTmpName, $fileDestination)) {
-                  
-                                $stmt = $conn->prepare("INSERT INTO Candidates (Name, Position, image_url) VALUES (?,?,?)");
-                                $stmt->bindParam(1, $name);
-                                $stmt->bindParam(2, $position);
-                                $stmt->bindParam(3, $fileDestination);
-
-                                $stmt->execute();
-                                echo "<script>alert('Data inserted successfully!'); window.location.href = 'candidates.php';</script>";
-                            } else {
-                                echo "<script>alert('Error uploading the image!'); window.location.href = 'candidates.php';</script>";
-                            }
-                        } catch (PDOException $e) {
-                            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = 'candidates.php';</script>";
-                        }
-                    } else {
-                        echo "<script>alert('File size is too large! Max file size is 5MB.'); window.location.href = 'candidates.php';</script>";
-                    }
+                // Move the uploaded file to the destination folder
+                if (move_uploaded_file($fileTmpName, $fileDestination)) {
+                    return $fileDestination;
                 } else {
-                    echo "<script>alert('There was an error uploading your file.'); window.location.href = 'candidates.php';</script>";
+                    return 'Error uploading the image!';
                 }
             } else {
-                echo "<script>alert('You cannot upload files of this type. Only JPG, JPEG, PNG, GIF are allowed.'); window.location.href = 'candidates.php';</script>";
+                return 'File size is too large! Max file size is 5MB.';
             }
         } else {
-            echo "<script>alert('No file uploaded.'); window.location.href = 'candidates.php';</script>";
+            return 'There was an error uploading your file.';
+        }
+    } else {
+        return 'You cannot upload files of this type. Only JPG, JPEG, PNG, GIF are allowed.';
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_POST['insert'])) {
+        $name = htmlspecialchars(trim($_POST['name']));
+        $position_id = htmlspecialchars(trim($_POST['position_id']));
+        $image_url = '';
+
+        // Handle image upload if a file is provided
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            $uploadResult = uploadImage($_FILES['image']);
+            if (strpos($uploadResult, 'Error') !== false) {
+                echo "<script>alert('$uploadResult'); window.location.href = 'candidates.php';</script>";
+                exit;
+            } else {
+                $image_url = $uploadResult;
+            }
+        }
+
+        try {
+            $stmt = $conn->prepare("INSERT INTO Candidates (Name, position_id, image_url) VALUES (?,?,?)");
+            $stmt->bindParam(1, $name);
+            $stmt->bindParam(2, $position_id, PDO::PARAM_INT);
+            $stmt->bindParam(3, $image_url);
+
+            $stmt->execute();
+            echo "<script>alert('Data inserted successfully!'); window.location.href = 'candidates.php';</script>";
+        } catch (PDOException $e) {
+            echo "<script>alert('Error: " . $e->getMessage() . "'); window.location.href = 'candidates.php';</script>";
         }
 
     } elseif (isset($_POST['update'])) {
         $name = htmlspecialchars(trim($_POST['name']));
-        $position = htmlspecialchars(trim($_POST['position']));
-        $image = null;
+        $position_id = htmlspecialchars(trim($_POST['position_id']));
         $id = $_POST['id'];
+        $image_url = '';
+
+        // Check if a new image was uploaded
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            $uploadResult = uploadImage($_FILES['image']);
+            if (strpos($uploadResult, 'Error') !== false) {
+                echo "<script>alert('$uploadResult'); window.location.href = 'candidates.php';</script>";
+                exit;
+            } else {
+                $image_url = $uploadResult;
+            }
+        }
 
         try {
+            // Update the candidate
             $stmt = $conn->prepare("UPDATE Candidates 
-            SET Name = :name, 
-                Position = :position, 
-                image_url = COALESCE(NULLIF(:image_url, ''), image_url)
-            WHERE id = :id");
+                SET Name = :name, 
+                    position_id = :position_id, 
+                    image_url = COALESCE(NULLIF(:image_url, ''), image_url)
+                WHERE id = :id");
+
             $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':position', $position);
-            $stmt->bindParam(':image_url', $image);
-            $stmt->bindParam(':id', $id);
+            $stmt->bindParam(':position_id', $position_id, PDO::PARAM_INT);
+            $stmt->bindParam(':image_url', $image_url); // Only update image if a new image is provided
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
             $stmt->execute();
             echo "<script>alert('Candidate updated successfully!'); window.location.href = 'candidates.php';</script>";
@@ -127,5 +150,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET
         }
     }
 }
-
-
