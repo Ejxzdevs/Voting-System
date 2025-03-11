@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateBtn.classList.add('bg-blue-500');
         updateBtn.classList.add('hover:bg-blue-700');
         updateBtn.classList.add('cursor-pointer');
+   
 
         insertBtn.disabled = true;
         insertBtn.classList.add('cursor-not-allowed')
@@ -40,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
               console.log(getData);
               document.getElementById('candidate_name').value = getData.Name;
               document.getElementById('candidate_id').value = getData.id;
-              document.getElementById('position').value = getData.Position;
+              document.getElementById('position_id').value = getData.position_id;
+              console.log(getData.position_id)
 
               previewImage.src = getData.image_url;
               previewImage.style.display = 'block'
