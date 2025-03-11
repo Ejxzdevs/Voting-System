@@ -1,6 +1,7 @@
 <?php
 require_once 'connection.php'; 
-require_once 'candidates_service.php'; 
+require_once 'candidates_service.php';
+require_once 'positions_service.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@ require_once 'candidates_service.php';
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Admin/Dashboard</title>
 </head>
-<body>
+<body class="bg-[#1686C7]">
     <!-- Header Section -->
     <div class="text-white flex flex-col">
         <label class="flex items-center justify-center bg-[#1686C7] uppercase text-[18px] font-[Verdana] font-semibold h-[50px] tracking-wide">
@@ -29,7 +30,7 @@ require_once 'candidates_service.php';
     </div>
 
     <!-- Candidates Grid Section -->
-    <div class="px-4">
+    <div class="px-4 bg-[#1686C7]">
         <div class="min-w-[97vw] shadow-md rounded-md bg-white h-[auto] mt-5 flex flex-wrap justify-evenly items-center gap-8 p-4">
             <?php 
                 // Loop through the positions and candidates
