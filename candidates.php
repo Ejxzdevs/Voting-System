@@ -1,8 +1,8 @@
 <?php 
-    require_once 'connection.php';
-    require_once 'http.php';
-    require_once 'candidates_service.php';
-    require_once 'positions_service.php';
+    require_once 'config/connection.php';
+    require_once 'api/candidates.php';
+    require_once 'services/candidates_service.php';
+    require_once 'services/positions_service.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,10 +19,10 @@
         <label class="flex items-center justify-center bg-[#1686C7]  uppercase text-[18px] font-[Verdana]  font-semibold h-[50px] tracking-wide">Voting Management System</label>
         <div class="bg-[#E5E6E6] h-[50px] flex flex-row w-[98%] ms-4 rounded-sm ">
             <div class="flex flex-row gap-2 ps-5 items-center w-[50%]">
-                <?php require_once 'route.php'; ?>
+                <?php require_once 'components/route.php'; ?>
             </div>
             <div class="flex flex-row gap-5 ps-5 items-center justify-end w-[50%] pe-6 text-gray-500 text-[16px]">
-                <?php require_once 'options.php'; ?>
+                <?php require_once 'components/options.php'; ?>
             </div>
         </div>
         <form class="flex flex-row gap-2 items-center pl-9 font-semibold h-[60px] " action="" method="post" enctype="multipart/form-data">
@@ -71,6 +71,6 @@
         </tbody>
     </table>
 </div>
-    <script src="./footer.js"></script>
+    <script src="./assets/js/footer.js"></script>
 </body>
 </html>
