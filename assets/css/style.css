@@ -1,12 +1,36 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&family=Poppins:wght@300;400;600&display=swap');
+
+/* Resetting padding, margin, and box-sizing */
 * {
- padding: 0;
- margin: 0;
- box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-html,body {
-    height: auto;
+/* Apply Roboto font to the body */
+body {
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    height: auto;
     scrollbar-width: thin;
-    scrollbar-color:#E5E6E6 #636363;
+    scrollbar-color: #E5E6E6 #636363;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+label {
+    font-family: 'Poppins', sans-serif;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* You can add more specific styling here */
