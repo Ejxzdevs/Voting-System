@@ -2,7 +2,9 @@
 require_once 'config/connection.php'; 
 require_once 'api/candidates.php';
 require_once 'services/candidates_service.php';
+require_once 'services/positions_service.php';
 require_once 'services/voter_service.php';
+require_once 'services/votes_service.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,32 +37,32 @@ require_once 'services/voter_service.php';
                 <div class="text-4xl text-green-700 mb-4">
                     <i class="fas fa-thumbs-up"></i>
                 </div>
-                <p class="text-lg font-semibold text-gray-700">Votes Number</p>
-                <p class="text-2xl text-gray-900">1,235</p>
+                <p class="text-lg font-semibold text-gray-700">Total Votes</p>
+                <p class="text-2xl text-gray-900"><?php echo count($votes)?></p>
             </div>
 
             <div class="border border-gray-800 h-[150px] w-full rounded-lg flex flex-col items-center justify-center bg-gray-100 shadow-lg p-4">
                 <div class="text-4xl text-blue-600 mb-4">
                     <i class="fas fa-users"></i>
                 </div>
-                <p class="text-lg font-semibold text-gray-700">Voters Number</p>
-                <p class="text-2xl text-gray-900">2,456</p>
+                <p class="text-lg font-semibold text-gray-700">Total Voters</p>
+                <p class="text-2xl text-gray-900"><?php echo count($voters ); ?></p>
             </div>
 
             <div class="border border-gray-800 h-[150px] w-full rounded-lg flex flex-col items-center justify-center bg-gray-100 shadow-lg p-4">
                 <div class="text-4xl text-yellow-600 mb-4">
                     <i class="fas fa-user-tie"></i>
                 </div>
-                <p class="text-lg font-semibold text-gray-700">Candidates Number</p>
-                <p class="text-2xl text-gray-900"><?php echo count($candidates_by_type); ?></p>
+                <p class="text-lg font-semibold text-gray-700">Total Candidates</p>
+                <p class="text-2xl text-gray-900"><?php echo count($candidates); ?></p>
             </div>
 
             <div class="border border-gray-800 h-[150px] w-full rounded-lg flex flex-col items-center justify-center bg-gray-100 shadow-lg p-4">
                 <div class="text-4xl text-purple-600 mb-4">
-                    <i class="fas fa-chart-line"></i>
+                    <i class="fas fa-user-tie"></i>
                 </div>
-                <p class="text-lg font-semibold text-gray-700">Active Polls</p>
-                <p class="text-2xl text-gray-900">4</p>
+                <p class="text-lg font-semibold text-gray-700">Total Position</p>
+                <p class="text-2xl text-gray-900"><?php echo count($positions); ?></p>
             </div>
         </div>
 
