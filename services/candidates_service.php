@@ -1,6 +1,14 @@
 <?php 
-$sql_fetch_data = "SELECT * 
-FROM Candidates inner join positions on Candidates.position_id = positions.position_id order by positions.position_id ";
+$sql_fetch_data = "SELECT 
+    Candidates.*, 
+    (SELECT position_name 
+     FROM positions 
+     WHERE positions.position_id = Candidates.position_id) AS position_name
+FROM Candidates 
+INNER JOIN positions 
+    ON Candidates.position_id = positions.position_id
+ORDER BY positions.position_id;
+";
 $stmt = $conn->query($sql_fetch_data);
 $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
