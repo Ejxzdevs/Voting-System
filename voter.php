@@ -1,12 +1,13 @@
-<?php 
+<?php
+session_start(); 
 require_once 'config/connection.php';
 require_once 'services/candidates_service.php';
 
-// Start session to store vote state
-session_start();
-
 $name = $_SESSION['voter_name'];
 $id = $_SESSION['voter_id'];
+
+// Fetch the positions the user has voted for (assuming it's in session)
+$position_array = isset($_SESSION['position_array']) ? $_SESSION['position_array'] : [];
 ?>
 
 <!DOCTYPE html>
@@ -14,34 +15,9 @@ $id = $_SESSION['voter_id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>User Voting</title>
-    <style>
-        /* Animation for table rows */
-        .fadeInUp {
-            animation: fadeInUp 0.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Button hover effects */
-        .hover-scale {
-            transition: transform 0.3s ease;
-        }
-
-        .hover-scale:hover {
-            transform: scale(1.05);
-        }
-    </style>
+    <title>Voting System</title>
 </head>
 <body class="bg-[#1686C7]">
 
@@ -72,16 +48,22 @@ $id = $_SESSION['voter_id'];
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <?php foreach ($candidates as $candidate): ?>
+                    <?php foreach ($candidates as $candidate): 
+                        // Check if the user has already voted for this position
+                        $isVoted = in_array($candidate['position_name'], $position_array);
+                    ?>
                         <tr class="fadeInUp">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <img class="shadow-md rounded-md h-12 w-12 object-cover" src="<?php echo htmlspecialchars($candidate['image_url']); ?>" alt="<?php echo htmlspecialchars($candidate['Name']); ?>">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><?php echo htmlspecialchars($candidate['Name']); ?></td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="votes.php?candidate_id=<?php echo $candidate['id']; ?>&voter_id=<?php echo $id ?>" 
-                                   class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 hover-scale"
-                                   >Vote</a>
+                    
+                                <a href="<?php echo $isVoted ? '#' : 'votes.php?candidate_id=' . $candidate['id'] . '&voter_id=' . $id . '&position=' . $candidate['position_name']; ?>" 
+                                   class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg 
+                                          <?php echo $isVoted ? 'cursor-not-allowed bg-gray-500' : 'hover:bg-blue-700 transition duration-300'; ?>"
+                                   <?php echo $isVoted ? 'disabled' : ''; ?>
+                                   ><?php echo $isVoted ? 'Voted' : 'Vote'; ?></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -91,6 +73,13 @@ $id = $_SESSION['voter_id'];
     </div>
     <?php endforeach; ?>
 </div>
+
+<div class="h-[100px] flex justify-center items-center">
+    <a href="logout.php" class="bg-white text-blue-700 font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 hover:text-white transition duration-300 sm:py-3 sm:px-8 md:py-3 md:px-10">
+        Finish Vote
+    </a>
+</div>
+
 
 </body>
 </html>
