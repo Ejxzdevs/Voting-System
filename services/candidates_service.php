@@ -18,11 +18,9 @@ $candidates_by_type = array();
 foreach ($candidates as $candidate) {
     $position = $candidate['position_name'];
     
-    // If the position key doesn't exist, initialize it as an empty array
     if (!isset($candidates_by_type[$position])) {
         $candidates_by_type[$position] = array();
     }
 
-    // Append the candidate to the corresponding position
     $candidates_by_type[$position][] = $candidate;
 }
