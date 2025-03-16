@@ -1,14 +1,11 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600&family=Poppins:wght@300;400;600&display=swap');
-
-/* Resetting padding, margin, and box-sizing */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-/* Apply Roboto font to the body */
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
@@ -33,4 +30,29 @@ button {
     font-family: 'Poppins', sans-serif;
 }
 
-/* You can add more specific styling here */
+/* voter.php style */
+.fadeInUp {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Button hover effects */
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+
