@@ -1,13 +1,18 @@
 <?php 
 $sql_fetch_data = "SELECT 
+    COUNT(votes.candidate_id) AS total_votes,
     Candidates.*, 
-    (SELECT position_name 
-     FROM positions 
-     WHERE positions.position_id = Candidates.position_id) AS position_name
-FROM Candidates 
+    positions.position_name
+FROM 
+    Candidates
 INNER JOIN positions 
     ON Candidates.position_id = positions.position_id
-ORDER BY positions.position_id;
+INNER JOIN votes 
+    ON Candidates.id = votes.candidate_id
+GROUP BY 
+    Candidates.id, positions.position_name
+ORDER BY 
+    positions.position_id;
 ";
 $stmt = $conn->query($sql_fetch_data);
 $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
