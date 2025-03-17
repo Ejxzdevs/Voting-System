@@ -17,9 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: ../dashboard.php");
             exit;
         } else {
-            echo "Invalid username or password.";
+            echo "<script>alert('Invalid username or password');</script>";
+            echo "<script>window.location.href = '../login.php';</script>";
         }
     } else {
-        echo "Please fill in all fields.";
+        echo "<script>alert('Fill all the fields')</script>";
+        echo "<script>window.location.href = '../login.php';</script>";
     }
 }
