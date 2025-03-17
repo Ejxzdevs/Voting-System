@@ -83,7 +83,8 @@ require_once 'services/votes_service.php';
                                 <td class="px-6 py-4"><?php echo $voter['voter_id']; ?></td>
                                 <td class="px-6 py-4"><?php echo $voter['voter_name']; ?></td>
                                 <td class="px-6 py-4">
-                                    <a href="#" class="text-blue-500 hover:text-blue-700 font-medium">
+                                    <a href="javascript:void(0);" class="view-votes text-blue-500 hover:text-blue-700 cursor-pointer"
+                                       data-votes='<?php echo htmlspecialchars(json_encode(getVotes($voter['voter_id'])), ENT_QUOTES, 'UTF-8'); ?>'>
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 </td>
@@ -115,5 +116,17 @@ require_once 'services/votes_service.php';
         </div>
     </div>
 
+
+    <!-- Pop-up Modal -->
+    <div id="voteModal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-[90%] max-w-md relative animate-fadeIn">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Voted Candidates</h2>
+            <ul id="voteList" class="text-gray-900 space-y-2 max-h-60 overflow-y-auto p-2 border rounded-md bg-gray-50"></ul>
+            <button id="closeModal" class="absolute top-6 right-8 text-gray-500 hover:text-gray-700 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+    <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
