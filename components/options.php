@@ -14,7 +14,7 @@
     <a href="#" onclick="openModal()" class="text-xl text-gray-700 hover:text-gray-900">
         <i class="fa fa-cogs"></i>
     </a>
-    <a href="index.php" class="text-xl text-gray-700 hover:text-gray-900">
+    <a href="logout.php?role=admin" class="text-xl text-gray-700 hover:text-gray-900">
         <i class="fa fa-sign-out-alt"></i>
     </a>
 </div>
@@ -22,10 +22,7 @@
 <!-- Positions Modal -->
 <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden text-[14px]">
     <div class="bg-white rounded-lg p-8 w-full sm:w-96 relative">
-        
-        <!-- Close Button (Top Right) -->
      
-
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl font-semibold text-center">Positions</h2>
             <button onclick="openAddPositionModal()" class="w-[90px] h-9 px-2 border border-blue-700 bg-blue-500 hover:bg-blue-700 cursor-pointer shadow-md rounded text-white">
@@ -40,12 +37,10 @@
                         <span class="text-gray-800"><?php echo htmlspecialchars($position['position_name']); ?></span>
                         
                         <div class="flex flex-row gap-2">
-                            <!-- Edit Button -->
                             <button onclick="openEditPositionModal(<?php echo $position['position_id']; ?>, '<?php echo htmlspecialchars($position['position_name']); ?>')" class="text-blue-600 hover:text-blue-800">
                                 <i class="fa fa-edit text-xl"></i>
                             </button>
 
-                            <!-- Delete Button -->
                             <form method="POST" action="" class="flex items-center space-x-2">
                                 <input type="hidden" name="position_id" value="<?php echo $position['position_id']; ?>">
                                 <button type="submit" name="delete_position" class="text-red-600 hover:text-red-800 bg-transparent border-none">
