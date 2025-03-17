@@ -1,4 +1,4 @@
-<?php 
+'<?php 
     require_once 'config/connection.php';
     require_once 'api/voter.php';
 ?>
