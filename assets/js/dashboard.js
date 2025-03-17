@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     viewLinks.forEach(link => {
         link.addEventListener("click", function () {
+            const candidateName = this.getAttribute("voter-name")
+            document.getElementById('voter_name').textContent = candidateName;
+            console.log(candidateName);
             const votesData = JSON.parse(this.getAttribute("data-votes"));
             voteList.innerHTML = "";
 
