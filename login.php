@@ -37,11 +37,6 @@
             </button>
         </form>
 
-        <div class="mt-6 text-center">
-            <a href="#" class="text-sm text-gray-500 hover:underline">Forgot Password?</a>
-        </div>
     </div>
-
 </body>
-
 </html>
