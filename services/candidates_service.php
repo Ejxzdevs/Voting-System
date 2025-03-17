@@ -12,7 +12,7 @@ INNER JOIN votes
 GROUP BY 
     Candidates.id, positions.position_name
 ORDER BY 
-    positions.position_id;
+    positions.position_id , total_votes DESC;
 ";
 $stmt = $conn->query($sql_fetch_data);
 $candidates = $stmt->fetchAll(PDO::FETCH_ASSOC);
