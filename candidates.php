@@ -1,4 +1,8 @@
-<?php 
+<?php
+session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: login.php");
+}
     require_once 'config/connection.php';
     require_once 'api/candidates.php';
     require_once 'services/candidates_service.php';
