@@ -7,7 +7,7 @@ FROM
     Candidates
 INNER JOIN positions 
     ON Candidates.position_id = positions.position_id
-INNER JOIN votes 
+LEFT JOIN votes 
     ON Candidates.id = votes.candidate_id
 GROUP BY 
     Candidates.id, positions.position_name
