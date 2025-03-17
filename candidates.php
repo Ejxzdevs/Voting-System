@@ -61,7 +61,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Name']; ?></td>
                     <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['position_name']; ?></td>
-                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['Count']; ?></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><?php echo $candidate['total_votes']; ?></td>
                     <td class="px-6 py-4 whitespace-nowrap flex flex-row gap-6 justify-center items-center ">
                         <a id="editBtn" href="javascript:void(0);" class="edit-link text-blue-500 hover:text-blue-700" data='<?php echo htmlspecialchars(json_encode($candidate), ENT_QUOTES, 'UTF-8'); ?>'><i class="fas fa-edit"></i></a>
                         <a href="?delete=<?php echo $candidate['id']; ?>" class="text-red-500 hover:text-red-700 mr-2"><i class="fas fa-trash"></i></a>

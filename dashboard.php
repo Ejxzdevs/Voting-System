@@ -104,8 +104,9 @@ require_once 'services/votes_service.php';
                     <h2 class="text-2xl font-semibold mb-4 mt-4 text-center text-white"><?php echo $Position; ?></h2>
                     <div class="p-4 overflow-y-auto h-[200px]">
                         <?php foreach ($candidates as $candidate): ?>
-                            <div class="candidate mb-4 p-4 bg-white rounded-md shadow-sm h-[30px] flex items-center justify-start">
-                                <p class="font-semibold text-[#1686C7]"><?php echo $candidate['Name']; ?></p>
+                            <div class="candidate mb-4 p-4 bg-white rounded-md shadow-sm h-[30px] flex items-center justify-between">
+                                <p class="font-semibold text-gray-700"><?php echo $candidate['Name']; ?></p>
+                                <p class="font-semibold text-gray-700"><?php echo $candidate['total_votes']; ?></p>
                             </div>
                         <?php endforeach; ?>
                     </div>
