@@ -1,73 +1,27 @@
-Voting System Documentation
+# Voting Management System - A Dynamic Voting System Website
+## Overview 📌
+The Voting Management System is designed to simplify and streamline the election process. It allows administrators to manage candidates, voting positions, and monitor election results efficiently. Admin features include tracking total votes, voters, candidates, and positions, along with managing candidates and positions through CRUD operations. The platform also provides voters with an easy registration process and a voting page where they can select candidates for various positions. Built with PHP for the backend, MySQL for database management, and a responsive frontend using HTML, CSS, and Tailwind, this system ensures an organized and transparent election experience
 
-# Introduction
-This document provides an overview and documentation for a simple web-based voting system implemented in PHP and MySQL. The system allows administrators to manage candidates and positions and users to vote for candidates based on their respective positions.
+![Logo](Overview.png)
 
-# Table of Contents
-
-1. Overview
-2. Setup
-3. Admin Panel
-    3.1 Inserting Candidates
-    3.2 Updating Candidates
-    3.3 Deleting Candidates
-4. User Interface
-    4.1 Viewing Candidates
-    4.2 Voting
-5. Database Structure
-6. Dependencies
-7. Conclusion
-
-# Overview
-
-The voting system comprises two main components: the admin panel for administrators to manage candidates and positions, and the user interface for users to view candidates and cast their votes.
-
-# Setup
-
-To set up the system, follow these steps:
-
-Configure a web server environment with PHP support.
-Import the provided MySQL dump to create the necessary database structure.
-Ensure proper file permissions and directory setup.
-Configure the database connection in connection.php.
-
-# Admin Panel
-5.1 Inserting Candidates
-Administrators can add new candidates by providing their name and position.
-Candidates are inserted into the database upon submission.
-
-5.2 Updating Candidates
-Administrators can edit existing candidate information, including their name and position.
-Candidate updates are reflected in the database upon submission.
-
-5.3 Deleting Candidates
-Administrators can delete candidates from the system.
-Deleted candidates are removed from the database.
-
-# User Interface
-6.1 Viewing Candidates
-Users can view a list of candidates grouped by their respective positions.
-Each candidate's name is displayed along with their position.
-
-6.2 Voting
-Users can cast their votes for candidates in each position.
-The system records the votes for each candidate.
-
-# Database Structure
-
-The database consists of a single table named voters, containing the following fields:
-
-id: Unique identifier for each candidate.
-Name: Name of the candidate.
-Position: Position for which the candidate is running.
-Count: Count of votes received by the candidate.
-
-# Dependencies
-The system relies on the following dependencies:
-
-PHP for server-side scripting.
-MySQL for database management.
-Tailwind CSS for styling the user interface.
-
-# Conclusion
-The provided voting system offers a simple yet effective solution for managing candidate information and conducting elections in various positions.
+## Features 📌
+ - Admin
+    - Dashboard
+        - total Positions: The total number of available positions that voters can choose candidates for
+        - total Votes: The overall number of votes cast in the system
+        - total Voters: The total number of registered voters who are eligible to vote
+        - total Candidates: The total number of candidates running for various positions
+        - Latest Voters: A list of the most recent voters, with an "eye" button to view the candidates they selected
+        - List of Candidates: Sorted by votes, showing candidates from highest to lowest vote count.
+    - Candidates
+        - Create, read, update, and delete (CRUD) candidate listings
+    - Positions
+        - Create, read, update, and delete (CRUD) positions listings
+ - Login/Logout
+ - End User
+    - Register: Voter registration page to allow users to register as eligible voters.
+    - Voting Page: Registered voters can select their candidates for each available position.
+ ## Tech Stack 📌
+ - Frontend: HTML, CSS, Tailwind
+ - Backend: PHP
+ - Database: MySQL
