@@ -55,7 +55,7 @@ cd Voting-System
 
 3. Database setup:
  - Create a database named "voting_system" in your MySQL server.
- - Import the database from the "voting_system.sql" file located at the root directory of the project.
+ - Import the database "voting_system.sql" file located at the root directory of the project.
 
 4. Go to the config folder (located at /config/connection.php) and Update the connection details to match your local environment:
   ```php
