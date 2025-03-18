@@ -25,7 +25,7 @@ The Voting Management System is designed to simplify and streamline the election
 
 ## System Flow 📌
  - **Admin Flow**
-  1. **Login**: The admin logs into the system using the secure login page.
+  1. **Login**: The admin logs into the system using login page.
   2. **Dashboard Access**: Once logged in, the admin is directed to the dashboard where they can view the total positions, votes, voters, candidates, and the list of latest voters.
   3. **Manage Candidates**: The admin can add, update, or delete candidates through CRUD operations in the **Candidates** section.
   4. **Manage Positions**: The admin can add, update, or delete positions through CRUD operations in the **Positions** section.
