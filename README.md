@@ -3,6 +3,8 @@
 ## Overview 📌
 The Voting Management System is designed to simplify and streamline the election process. It allows administrators to manage candidates, voting positions, and monitor election results efficiently. Admin features include tracking total votes, voters, candidates, and positions, along with managing candidates and positions through CRUD operations. The platform also provides voters with an easy registration process and a voting page where they can select candidates for various positions. Built with PHP for the backend, MySQL for database management, and a responsive frontend using HTML, CSS, and Tailwind, this system ensures an organized and transparent election experience.
 
+
+## Sample Website Design Highlight
 ![Logo](Overview.png)
 
 ## Features 📌
